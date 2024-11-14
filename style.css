@@ -1,3 +1,9 @@
-html {
-    background-color: red;
+body {
+    background-color: #521f7c;
+    color: #eaeaea;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    text-align: center;
+    lighting-color: #eaeaea;
+
 }
