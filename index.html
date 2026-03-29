@@ -19,6 +19,7 @@
                 <a href="#about">About</a>
                 <a href="projects.html">Projects</a>
                 <a href="#experience">Experience</a>
+                <a href="uses.html">Uses</a>
                 <a href="#blog">Blog</a>
             </div>
         </nav>
@@ -119,6 +120,33 @@
             <li><span class="info-label">Interests:</span> Cars, races, guitar, code ofc</li>
             <li><span class="info-label">Current mood:</span> Awful <span class="accent">&darr;</span></li>
         </ul>
+
+        <div id="now-playing" class="now-playing" style="display:none">
+            <h3 class="about-label">Now Playing</h3>
+            <div class="np-card">
+                <img id="np-cover" src="" alt="" class="np-cover">
+                <div class="np-info">
+                    <strong id="np-track"></strong>
+                    <span id="np-artist"></span>
+                    <span id="np-album" class="text-muted"></span>
+                </div>
+                <div class="np-eq">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="last-played" class="now-playing" style="display:none">
+            <h3 class="about-label">Last Played</h3>
+            <div class="np-card">
+                <img id="lp-cover" src="" alt="" class="np-cover">
+                <div class="np-info">
+                    <strong id="lp-track"></strong>
+                    <span id="lp-artist"></span>
+                    <span id="lp-album" class="text-muted"></span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="experience" class="section">
@@ -166,6 +194,43 @@
         }
         update();
         setInterval(update, 1000);
+    })();
+
+    (function() {
+        const API_KEY = '19be16d29fc0b8a7cc19cc9355a54559';
+        const USER = 'shukayloprog';
+        const URL = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + USER + '&api_key=' + API_KEY + '&format=json&limit=1';
+
+        function fetchNowPlaying() {
+            fetch(URL)
+                .then(r => r.json())
+                .then(data => {
+                    const tracks = data.recenttracks.track;
+                    if (!tracks || !tracks.length) return;
+                    const track = tracks[0];
+                    const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+                    const img = track.image && track.image[2] ? track.image[2]['#text'] : '';
+
+                    if (isPlaying) {
+                        document.getElementById('now-playing').style.display = 'block';
+                        document.getElementById('last-played').style.display = 'none';
+                        document.getElementById('np-track').textContent = track.name;
+                        document.getElementById('np-artist').textContent = track.artist['#text'];
+                        document.getElementById('np-album').textContent = track.album['#text'];
+                        document.getElementById('np-cover').src = img;
+                    } else {
+                        document.getElementById('now-playing').style.display = 'none';
+                        document.getElementById('last-played').style.display = 'block';
+                        document.getElementById('lp-track').textContent = track.name;
+                        document.getElementById('lp-artist').textContent = track.artist['#text'];
+                        document.getElementById('lp-album').textContent = track.album['#text'];
+                        document.getElementById('lp-cover').src = img;
+                    }
+                })
+                .catch(() => {});
+        }
+        fetchNowPlaying();
+        setInterval(fetchNowPlaying, 15000);
     })();
     </script>
 </body>
