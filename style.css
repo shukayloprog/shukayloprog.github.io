@@ -123,6 +123,25 @@ h2 {
     margin-bottom: 2.5rem;
 }
 
+.contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.contact-link:hover {
+    color: var(--accent);
+}
+
 /* About blocks */
 .about-block {
     margin-bottom: 1.8rem;
