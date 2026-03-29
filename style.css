@@ -1,16 +1,152 @@
 * {
-    background-color: #521f7c;
-    color: #eaeaea;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 30px;
-    text-align: center;
-    lighting-color: #eaeaea;
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-a {
-    color: #eaeaea;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 30px;
-    lighting-color: #eaeaea;
 
+:root {
+    --bg: #111;
+    --bg-card: #1a1a1a;
+    --text: #eaeaea;
+    --text-muted: #888;
+    --accent: #e63946;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.accent {
+    color: var(--accent);
+}
+
+/* Nav */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+/* Sections */
+.section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: var(--accent);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.bio {
+    max-width: 500px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.5rem 1.5rem;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* Projects grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border: 1px solid #333;
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Blog */
+.blog-post {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #222;
+}
+
+.blog-post .date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.blog-post h3 {
+    margin: 0.3rem 0;
+}
+
+.blog-post h3 a:hover {
+    color: var(--accent);
+}
+
+.blog-post p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
 }
