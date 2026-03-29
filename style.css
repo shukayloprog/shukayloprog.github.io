@@ -604,6 +604,21 @@ footer {
     margin-top: 2rem;
 }
 
+.visitor-count {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+.gc-counter {
+    vertical-align: middle;
+    filter: invert(0.6);
+}
+
 /* Scroll fade-in */
 .fade-in {
     opacity: 0;
