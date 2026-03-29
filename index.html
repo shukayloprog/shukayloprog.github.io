@@ -94,6 +94,18 @@
             <ul class="lang-list">
                 <li><span class="flag">&#127479;&#127482;</span> Russian — native</li>
                 <li><span class="flag">&#127468;&#127463;</span> English — C1 (self tested)</li>
+                <li><i class="devicon-cplusplus-plain colored" style="font-size:1rem;vertical-align:middle"></i> C++ — native</li>
+            </ul>
+        </div>
+
+        <div class="about-block">
+            <h3 class="about-label">Currently Learning</h3>
+            <ul class="lang-list">
+                <li>Modeling & simulation</li>
+                <li>Virtualization technologies</li>
+                <li>Distributed systems theory (clusters)</li>
+                <li>Databases</li>
+                <li>C++ OOP (self-taught)</li>
             </ul>
         </div>
 
@@ -128,7 +140,7 @@
         <h2>Some personal info</h2>
         <ul class="info-list">
             <li><span class="info-label">Alive for:</span> <span id="alive-counter"></span></li>
-            <li><span class="info-label">Favorite color:</span> <span class="color-swatch" style="background:#663399"></span> #663399</li>
+            <li><span class="info-label">Favorite color:</span> <span class="color-swatch" style="background:#663399"></span> #663399, <span class="color-swatch" style="background:#dc2626"></span> #dc2626</li>
             <li><span class="info-label">Location:</span> Russia, Novosibirsk</li>
             <li><span class="info-label">Favorite music:</span> blackmetal, breakcore, classic</li>
             <li><span class="info-label">Interests:</span> Cars, races, guitar, code ofc</li>
@@ -153,7 +165,7 @@
     </section>
 
     <section class="section uses-section">
-        <h2>Uses</h2>
+        <h2>My Hardware</h2>
         <div class="uses-compact">
             <span><i class="devicon-vscode-plain" title="VS Code"></i> VS Code</span>
             <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M2 4v16h20V4H2zm18 14H4V6h16v12zM6 8h2v2H6V8zm0 3h2v2H6v-2zm0 3h12v2H6v-2zm3-6h9v2H9V8zm0 3h9v2H9v-2z"/></svg> nano</span>
@@ -240,6 +252,19 @@
         }
         fetchTracks();
         setInterval(fetchTracks, 10000);
+    })();
+
+    (function() {
+        var els = document.querySelectorAll('.section, .about-block, .job, .blog-post, .uses-section');
+        els.forEach(function(el) { el.classList.add('fade-in'); });
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        els.forEach(function(el) { observer.observe(el); });
     })();
     </script>
 </body>
