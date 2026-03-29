@@ -62,6 +62,10 @@ nav {
 .logo-icon {
     width: 24px;
     height: 24px;
+    max-width: 24px;
+    max-height: 24px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .nav-links {
