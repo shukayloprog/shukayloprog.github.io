@@ -291,6 +291,12 @@ h2 {
     font-size: 0.8rem;
 }
 
+.project-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+}
+
 .project-stack {
     display: flex;
     gap: 0.6rem;
