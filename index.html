@@ -204,21 +204,28 @@
     (function() {
         const API_KEY = '19be16d29fc0b8a7cc19cc9355a54559';
         const USER = 'shukayloprog';
-        const URL = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + USER + '&api_key=' + API_KEY + '&format=json&limit=5';
+        const API_URL = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + USER + '&api_key=' + API_KEY + '&format=json&limit=5';
+        let lastHash = '';
+
+        function trackKey(t) { return t.name + '|' + t.artist['#text'] + '|' + (t['@attr'] && t['@attr'].nowplaying || ''); }
 
         function fetchTracks() {
-            fetch(URL)
-                .then(r => r.json())
-                .then(data => {
-                    const tracks = data.recenttracks.track;
+            fetch(API_URL)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var tracks = data.recenttracks.track;
                     if (!tracks || !tracks.length) return;
-                    const container = document.getElementById('tracks-list');
+                    var hash = tracks.map(trackKey).join(';;');
+                    if (hash === lastHash) return;
+                    lastHash = hash;
+                    var container = document.getElementById('tracks-list');
                     container.innerHTML = '';
-                    tracks.forEach(function(track) {
-                        const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
-                        const img = track.image && track.image[2] ? track.image[2]['#text'] : '';
-                        const card = document.createElement('div');
+                    tracks.forEach(function(track, i) {
+                        var isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+                        var img = track.image && track.image[2] ? track.image[2]['#text'] : '';
+                        var card = document.createElement('div');
                         card.className = 'np-card';
+                        card.style.animationDelay = (i * 0.06) + 's';
                         card.innerHTML =
                             '<img src="' + img + '" alt="" class="np-cover">' +
                             '<div class="np-info">' +
@@ -229,10 +236,10 @@
                         container.appendChild(card);
                     });
                 })
-                .catch(() => {});
+                .catch(function() {});
         }
         fetchTracks();
-        setInterval(fetchTracks, 15000);
+        setInterval(fetchTracks, 10000);
     })();
     </script>
 </body>
