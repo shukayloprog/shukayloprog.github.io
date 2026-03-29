@@ -19,7 +19,6 @@
                 <a href="#about">About</a>
                 <a href="projects.html">Projects</a>
                 <a href="#experience">Experience</a>
-                <a href="uses.html">Uses</a>
                 <a href="#blog">Blog</a>
             </div>
         </nav>
@@ -110,45 +109,6 @@
         </div>
     </section>
 
-    <section id="personal" class="section">
-        <h2>Some personal info</h2>
-        <ul class="info-list">
-            <li><span class="info-label">Alive for:</span> <span id="alive-counter"></span></li>
-            <li><span class="info-label">Favorite color:</span> <span class="color-swatch" style="background:#663399"></span> #663399</li>
-            <li><span class="info-label">Location:</span> Russia, Novosibirsk</li>
-            <li><span class="info-label">Favorite music:</span> blackmetal, breakcore, classic</li>
-            <li><span class="info-label">Interests:</span> Cars, races, guitar, code ofc</li>
-            <li><span class="info-label">Current mood:</span> Awful <span class="accent">&darr;</span></li>
-        </ul>
-
-        <div id="now-playing" class="now-playing" style="display:none">
-            <h3 class="about-label">Now Playing</h3>
-            <div class="np-card">
-                <img id="np-cover" src="" alt="" class="np-cover">
-                <div class="np-info">
-                    <strong id="np-track"></strong>
-                    <span id="np-artist"></span>
-                    <span id="np-album" class="text-muted"></span>
-                </div>
-                <div class="np-eq">
-                    <span></span><span></span><span></span>
-                </div>
-            </div>
-        </div>
-
-        <div id="last-played" class="now-playing" style="display:none">
-            <h3 class="about-label">Last Played</h3>
-            <div class="np-card">
-                <img id="lp-cover" src="" alt="" class="np-cover">
-                <div class="np-info">
-                    <strong id="lp-track"></strong>
-                    <span id="lp-artist"></span>
-                    <span id="lp-album" class="text-muted"></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="experience" class="section">
         <h2>Experience</h2>
         <div class="timeline">
@@ -164,6 +124,23 @@
         </div>
     </section>
 
+    <section id="personal" class="section">
+        <h2>Some personal info</h2>
+        <ul class="info-list">
+            <li><span class="info-label">Alive for:</span> <span id="alive-counter"></span></li>
+            <li><span class="info-label">Favorite color:</span> <span class="color-swatch" style="background:#663399"></span> #663399</li>
+            <li><span class="info-label">Location:</span> Russia, Novosibirsk</li>
+            <li><span class="info-label">Favorite music:</span> blackmetal, breakcore, classic</li>
+            <li><span class="info-label">Interests:</span> Cars, races, guitar, code ofc</li>
+            <li><span class="info-label">Current mood:</span> Awful <span class="accent">&darr;</span></li>
+        </ul>
+
+        <div class="now-playing">
+            <h3 class="about-label">Recent Tracks</h3>
+            <div id="tracks-list"></div>
+        </div>
+    </section>
+
     <section id="blog" class="section">
         <h2>Blog</h2>
         <div class="blog-list">
@@ -172,6 +149,20 @@
                 <h3><a href="blog/first-post/">Hello world, now i can post here</a></h3>
                 <p>so empty...... sob sob...</p>
             </article>
+        </div>
+    </section>
+
+    <section class="section uses-section">
+        <h2>Uses</h2>
+        <div class="uses-compact">
+            <span><i class="devicon-vscode-plain" title="VS Code"></i> VS Code</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M2 4v16h20V4H2zm18 14H4V6h16v12zM6 8h2v2H6V8zm0 3h2v2H6v-2zm0 3h12v2H6v-2zm3-6h9v2H9V8zm0 3h9v2H9v-2z"/></svg> nano</span>
+            <span><i class="devicon-ubuntu-plain" title="Ubuntu"></i> Ubuntu</span>
+            <span><i class="devicon-apple-original" title="macOS"></i> macOS</span>
+        </div>
+        <div class="uses-compact" style="margin-top:0.8rem">
+            <span class="text-muted">MacBook Air M2 8GB</span>
+            <span class="text-muted">Ryzen 5 5600X3D / RX 7800 XT 16GB / 16GB DDR4</span>
         </div>
     </section>
 
@@ -199,38 +190,35 @@
     (function() {
         const API_KEY = '19be16d29fc0b8a7cc19cc9355a54559';
         const USER = 'shukayloprog';
-        const URL = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + USER + '&api_key=' + API_KEY + '&format=json&limit=1';
+        const URL = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + USER + '&api_key=' + API_KEY + '&format=json&limit=5';
 
-        function fetchNowPlaying() {
+        function fetchTracks() {
             fetch(URL)
                 .then(r => r.json())
                 .then(data => {
                     const tracks = data.recenttracks.track;
                     if (!tracks || !tracks.length) return;
-                    const track = tracks[0];
-                    const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
-                    const img = track.image && track.image[2] ? track.image[2]['#text'] : '';
-
-                    if (isPlaying) {
-                        document.getElementById('now-playing').style.display = 'block';
-                        document.getElementById('last-played').style.display = 'none';
-                        document.getElementById('np-track').textContent = track.name;
-                        document.getElementById('np-artist').textContent = track.artist['#text'];
-                        document.getElementById('np-album').textContent = track.album['#text'];
-                        document.getElementById('np-cover').src = img;
-                    } else {
-                        document.getElementById('now-playing').style.display = 'none';
-                        document.getElementById('last-played').style.display = 'block';
-                        document.getElementById('lp-track').textContent = track.name;
-                        document.getElementById('lp-artist').textContent = track.artist['#text'];
-                        document.getElementById('lp-album').textContent = track.album['#text'];
-                        document.getElementById('lp-cover').src = img;
-                    }
+                    const container = document.getElementById('tracks-list');
+                    container.innerHTML = '';
+                    tracks.forEach(function(track) {
+                        const isPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+                        const img = track.image && track.image[2] ? track.image[2]['#text'] : '';
+                        const card = document.createElement('div');
+                        card.className = 'np-card';
+                        card.innerHTML =
+                            '<img src="' + img + '" alt="" class="np-cover">' +
+                            '<div class="np-info">' +
+                                '<strong>' + track.name + '</strong>' +
+                                '<span>' + track.artist['#text'] + '</span>' +
+                            '</div>' +
+                            (isPlaying ? '<div class="np-eq"><span></span><span></span><span></span></div>' : '');
+                        container.appendChild(card);
+                    });
                 })
                 .catch(() => {});
         }
-        fetchNowPlaying();
-        setInterval(fetchNowPlaying, 15000);
+        fetchTracks();
+        setInterval(fetchTracks, 15000);
     })();
     </script>
 </body>

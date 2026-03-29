@@ -220,13 +220,18 @@ h2 {
     margin-top: 2rem;
 }
 
+#tracks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .np-card {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem;
+    padding: 0.8rem 1rem;
     border: 1px solid var(--border);
-    margin-top: 0.6rem;
 }
 
 .np-cover {
@@ -427,6 +432,30 @@ h2 {
 .uses-list span {
     color: var(--text-muted);
     font-size: 0.8rem;
+}
+
+/* Uses compact */
+.uses-section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.uses-compact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-size: 0.85rem;
+}
+
+.uses-compact span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.uses-compact i {
+    font-size: 1.1rem;
+    color: var(--text-muted);
 }
 
 /* Experience */
