@@ -108,7 +108,41 @@ h2 {
     max-width: 480px;
     color: var(--text-muted);
     font-size: 0.95rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+/* About blocks */
+.about-block {
+    margin-bottom: 1.8rem;
+}
+
+.about-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.lang-list {
+    list-style: none;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.lang-list li {
+    margin-bottom: 0.3rem;
+}
+
+.flag {
+    margin-right: 0.4rem;
+}
+
+.edu {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
 }
 
 .btn {
