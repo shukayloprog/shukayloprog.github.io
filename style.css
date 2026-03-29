@@ -606,7 +606,7 @@ footer {
 
 .visitor-count {
     margin-top: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     display: flex;
     align-items: center;
@@ -615,6 +615,7 @@ footer {
 }
 
 .gc-counter {
+    height: 14px;
     vertical-align: middle;
     filter: invert(0.6);
 }
