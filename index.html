@@ -173,15 +173,29 @@
     (function() {
         const birth = new Date(2003, 3, 9);
         const el = document.getElementById('alive-counter');
+        let prev = '';
+        function pad(n) { return n < 10 ? '0' + n : '' + n; }
         function update() {
             const now = new Date();
             const diff = now - birth;
             const totalDays = Math.floor(diff / 86400000);
-            const hours = now.getHours();
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
+            const h = pad(now.getHours());
+            const m = pad(now.getMinutes());
+            const s = pad(now.getSeconds());
             const age = now.getFullYear() - 2003 - (now < new Date(now.getFullYear(), 3, 9) ? 1 : 0);
-            el.textContent = totalDays + 'd ' + hours + 'h ' + minutes + 'm ' + seconds + 's (' + age + ' yo)';
+            const text = totalDays + 'd ' + h + 'h ' + m + 'm ' + s + 's (' + age + ' yo)';
+            let html = '';
+            for (let i = 0; i < text.length; i++) {
+                const ch = text[i];
+                const changed = prev[i] !== ch;
+                if (/\d/.test(ch)) {
+                    html += '<span class="counter-digit' + (changed ? ' flip' : '') + '">' + ch + '</span>';
+                } else {
+                    html += ch;
+                }
+            }
+            el.innerHTML = html;
+            prev = text;
         }
         update();
         setInterval(update, 1000);
